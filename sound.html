@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파동 시뮬레이션</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black; /* 배경색 설정 */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 중앙 정렬 */
+        }
+        canvas {
+            border: 1px solid white; /* 캔버스 경계선 */
+            margin-top: 20px; /* 버튼과의 간격 */
+        }
+        button {
+            background-color: black; /* 버튼 배경색 */
+            color: white; /* 버튼 글자색 */
+            border: 1px solid white; /* 버튼 경계선 */
+            padding: 10px 15px; /* 버튼 패딩 */
+            cursor: pointer; /* 커서 스타일 */
+            margin: 5px; /* 버튼 간격 */
+            font-size: 16px; /* 버튼 글자 크기 */
+        }
+        button:hover {
+            background-color: #555; /* 버튼 호버 색상 */
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button id="increaseAmplitude">진폭 증가</button>
+        <button id="decreaseAmplitude">진폭 감소</button>
+        <button id="increaseFrequency">주파수 증가</button>
+        <button id="decreaseFrequency">주파수 감소</button>
+    </div>
+    <canvas id="waveCanvas"></canvas>
+
+    <script src="sound.js"></script> <!-- External JS file -->
+
+    <script>
+        document.addEventListener('keydown', function(event) {
+            // Check if the 'Escape' key was pressed
+            if (event.key === "Escape") {
+                // Redirect to a specific HTML file
+                window.location.href = "mainpage.html";
+            }
+        });
+    </script>
+</body>
+</html>

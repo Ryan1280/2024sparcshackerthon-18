@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>빛의 삼원색 혼합과 라벨</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #000;
+            margin: 0;
+            color: white;
+        }
+
+        canvas {
+            background-color: #000;
+        }
+
+        .label {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <div class="label" id="colorLabel"></div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const label = document.getElementById('colorLabel');
+
+        const colors = [
+            { id: 'Red', x: 200, y: 300, color: 'rgba(255, 0, 0, 0.5)' },
+            { id: 'Green', x: 400, y: 300, color: 'rgba(0, 255, 0, 0.5)' },
+            { id: 'Blue', x: 300, y: 400, color: 'rgba(0, 0, 255, 0.5)' }
+        ];
+
+        const radius = 150;
+        let draggingCircle = null;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw circles
+            colors.forEach(circle => {
+                ctx.fillStyle = circle.color;
+                ctx.beginPath();
+                ctx.arc(circle.x, circle.y, radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // Determine overlap and display color names
+            const colorNames = getCombinedColorNames();
+            label.textContent = colorNames.join(', ');
+        }
+
+        function getCircleAtPosition(x, y) {
+            return colors.find(circle => {
+                const dx = circle.x - x;
+                const dy = circle.y - y;
+                return Math.sqrt(dx * dx + dy * dy) < radius;
+            });
+        }
+
+        function getCombinedColorNames() {
+            const [red, green, blue] = colors;
+            const distanceRG = Math.hypot(red.x - green.x, red.y - green.y);
+            const distanceRB = Math.hypot(red.x - blue.x, red.y - blue.y);
+            const distanceGB = Math.hypot(green.x - blue.x, green.y - blue.y);
+
+            // Adjust overlap threshold to the sum of the radii (radius * 2)
+            const overlapThreshold = radius * 2;
+            const result = [];
+
+            // Check if each pair of circles is touching or overlapping
+            if (distanceRG <= overlapThreshold && distanceRB <= overlapThreshold && distanceGB <= overlapThreshold) {
+                result.push('White');
+            } else {
+                if (distanceRG <= overlapThreshold) result.push('Yellow');
+                if (distanceRB <= overlapThreshold) result.push('Magenta');
+                if (distanceGB <= overlapThreshold) result.push('Cyan');
+            }
+
+            if (result.length === 0) {
+                result.push('Red', 'Green', 'Blue');
+            }
+
+            return result;
+        }
+
+        canvas.addEventListener('mousedown', (event) => {
+            const mouseX = event.offsetX;
+            const mouseY = event.offsetY;
+            const circle = getCircleAtPosition(mouseX, mouseY);
+
+            if (circle) {
+                draggingCircle = circle;
+                offsetX = mouseX - circle.x;
+                offsetY = mouseY - circle.y;
+            }
+        });
+
+        canvas.addEventListener('mousemove', (event) => {
+            if (draggingCircle) {
+                draggingCircle.x = event.offsetX - offsetX;
+                draggingCircle.y = event.offsetY - offsetY;
+                draw();
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            draggingCircle = null;
+        });
+
+        draw();
+        
+    </script>
+    <script>
+        document.addEventListener('keydown', function(event) {
+              // Check if the 'Escape' key was pressed
+              if (event.key === "Escape") {
+                // Redirect to a specific HTML file
+                window.location.href = "mainpage.html";
+              }
+        });
+    </script>
+</body>
+</html>

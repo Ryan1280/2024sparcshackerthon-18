@@ -1,0 +1,62 @@
+.mainpage2-child {
+    position: absolute;
+    top: 422px;
+    left: 73px;
+    width: 545px;
+    height: 758px;
+    object-fit: cover;
+}
+.mainpage2-item {
+    position: absolute;
+    top: 421px;
+    left: 1316px;
+    width: 547px;
+    height: 758px;
+    object-fit: cover;
+}
+.mainpage2-inner {
+    position: absolute;
+    top: 422px;
+    left: 694px;
+    width: 546px;
+    height: 757px;
+    object-fit: cover;
+}
+.frame-icon {
+    position: absolute;
+    top: 420px;
+    left: 1939px;
+    width: 547px;
+    height: 759px;
+    object-fit: cover;
+}
+.sparcs {
+    margin: 0;
+}
+.sparcs-hackerthon-2024-container {
+    position: absolute;
+    top: 28.48px;
+    left: 42px;
+}
+.line-div {
+    position: absolute;
+    top: 34px;
+    left: 18px;
+    background-color: var(--color-white);
+    border-right: 4px solid var(--color-white);
+    box-sizing: border-box;
+    width: 4px;
+    height: 209px;
+}
+.mainpage2 {
+    width: 100%;
+    position: relative;
+    background-color: #2e2e2e;
+    height: 1905px;
+    overflow: hidden;
+    text-align: left;
+    font-size: 59px;
+    color: var(--color-white);
+    font-family: var(--font-inria-serif);
+}
+
